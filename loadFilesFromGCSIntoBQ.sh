@@ -29,17 +29,19 @@ main() {
   SRC_DIR="gs://qep_bkt3/20180808 Research Data Dump/*"
   BQ_TARGET_PROJECT=sufschrodersqep
   BQ_TARGET_DATASET=QEPData
-  BQ_TARGET_TABLE=StockDataCleansed4
+  BQ_TARGET_TABLE=StockDataCleansed5
   
   #Get an array for the list of files
   FILES=$(gsutil ls ${SRC_DIR})
   declare -a files_to_load=(${FILES})
 
-  #Loop throught the files
+  #Loop through the files
+  count=1
   for file in "${files_to_load[@]}"
   do
-    echo "About to load file: $file"
+    echo "About to load file ${count} : $file"
     bq --location=europe-west2 load --field_delimiter="|" --schema_update_option=ALLOW_FIELD_ADDITION --source_format=CSV --allow_jagged_rows --skip_leading_rows=1 --noreplace --null_marker="NaN" --autodetect ${BQ_TARGET_PROJECT}:${BQ_TARGET_DATASET}.${BQ_TARGET_TABLE} "${file}"
+    (( count++ ))
   done
   unset IFS
 }
