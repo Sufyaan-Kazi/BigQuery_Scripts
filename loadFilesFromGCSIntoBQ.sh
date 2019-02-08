@@ -26,7 +26,7 @@ main() {
   IFS=$'\n'
 
   #Get src folder and list of files in that folder
-  SRC_DIR="gs://qep_bkt3/20180808 Research Data Dump/*"
+  SRC_DIR="gs://suftestbucket/*"
   BQ_TARGET_PROJECT=sufschrodersqep
   BQ_TARGET_DATASET=QEPData
   BQ_TARGET_TABLE=StockDataCleansed5
@@ -50,5 +50,5 @@ trap 'abort' 0
 SECONDS=0
 main
 trap : 0
-printf "\nProject Setup Complete in ${SECONDS} seconds.\n"
+printf "\nScript Complete in ${SECONDS} seconds.\n"
 
